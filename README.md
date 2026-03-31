@@ -24,11 +24,14 @@ This `merged` branch consolidates the code that previously lived across multiple
 |-- yolo/
 |   |-- README.md
 |   |-- coco_export_session.py
+|   `-- yolo_export_session.py
+|-- converters/
 |   |-- fieldsafe_rgb_to_yolo.py
-|   |-- filter_to_person.py
-|   |-- undistort_images.py
-|   |-- yolo_export_session.py
 |   `-- yolo_to_coco.py
+|-- filters/
+|   `-- filter_to_person.py
+|-- preprocessing/
+|   `-- undistort_dataset_images.py
 `-- ros2bag/
     |-- README.md
     `-- check_and_make_rosbag2.py
@@ -39,7 +42,9 @@ This `merged` branch consolidates the code that previously lived across multiple
 - `shared/` comes from `v1.0` and contains the common dataset synchronization and manifest tooling.
 - `kitti/` comes from `KITTI-converter`.
 - `yolo/` comes from `YOLO-converter`.
-- `yolo/fieldsafe_rgb_to_yolo.py`, `yolo/filter_to_person.py`, and `yolo/yolo_to_coco.py` were added from local utility scripts and normalized into reusable CLIs.
+- `converters/` contains reusable format-transform utilities.
+- `filters/` contains dataset filtering utilities.
+- `preprocessing/` contains dataset preparation scripts such as image undistortion.
 - `ros2bag/` comes from `ROS2bag-converter`.
 
 The original branches remain available as-is:
@@ -59,6 +64,9 @@ python .\shared\sync_and_match.py <DATASET_ROOT>
 python .\shared\build_manifest_and_splits.py --root <DATASET_ROOT>
 python .\kitti\kitti_export_object.py --root <DATASET_ROOT> --out <OUT_DIR>
 python .\yolo\yolo_export_session.py --root <DATASET_ROOT> --out <OUT_DIR>
+python .\converters\yolo_to_coco.py --images_dir <IMAGES_DIR> --labels_dir <LABELS_DIR> --yaml_path <DATA_YAML> --output_path <OUT_JSON>
+python .\filters\filter_to_person.py --format coco --ann_file <ANN_JSON> --img_dir <IMG_DIR> --output <OUT_JSON> --human_labels person
+python .\preprocessing\undistort_dataset_images.py --root <DATASET_ROOT> --intrinsics <INTRINSICS_JSON>
 python .\ros2bag\check_and_make_rosbag2.py --bag-dir <DATASET_BAG_DIR>
 ```
 

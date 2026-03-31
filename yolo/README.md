@@ -209,20 +209,22 @@ Notes:
 
 ---
 
-## 4. Additional Utilities
+## 4. Related Utilities
 
-The `yolo/` folder also includes a few standalone conversion helpers:
+In the merged branch, non-export helpers live outside `yolo/`:
 
-- `fieldsafe_rgb_to_yolo.py` converts the FieldSafePedestrian RGB demo dataset into a single-class YOLO dataset.
-- `filter_to_person.py` filters COCO or Ultralytics-style YOLO/KITTI labels down to human classes and writes COCO JSON.
-- `yolo_to_coco.py` converts a YOLO image/label split plus `data.yaml` into COCO JSON.
+- `converters/fieldsafe_rgb_to_yolo.py` converts the FieldSafePedestrian RGB demo dataset into a single-class YOLO dataset.
+- `converters/yolo_to_coco.py` converts a YOLO image/label split plus `data.yaml` into COCO JSON.
+- `filters/filter_to_person.py` filters COCO or Ultralytics-style YOLO/KITTI labels down to human classes and writes COCO JSON.
+- `preprocessing/undistort_dataset_images.py` undistorts camera folders using `intrinsics.json`.
 
 Examples:
 
 ```bash
-python yolo/fieldsafe_rgb_to_yolo.py --dataset_root <FIELDSAFE_ROOT> --out <YOLO_OUT> --copy_images
-python yolo/filter_to_person.py --format coco --ann_file <ANN_JSON> --img_dir <IMG_DIR> --output <OUT_JSON> --human_labels person
-python yolo/yolo_to_coco.py --images_dir <IMAGES_DIR> --labels_dir <LABELS_DIR> --yaml_path <DATA_YAML> --output_path <OUT_JSON>
+python converters/fieldsafe_rgb_to_yolo.py --dataset_root <FIELDSAFE_ROOT> --out <YOLO_OUT> --copy_images
+python converters/yolo_to_coco.py --images_dir <IMAGES_DIR> --labels_dir <LABELS_DIR> --yaml_path <DATA_YAML> --output_path <OUT_JSON>
+python filters/filter_to_person.py --format coco --ann_file <ANN_JSON> --img_dir <IMG_DIR> --output <OUT_JSON> --human_labels person
+python preprocessing/undistort_dataset_images.py --root <DATASET_ROOT> --intrinsics <INTRINSICS_JSON>
 ```
 
 ---
@@ -236,7 +238,7 @@ All scripts are **OS-independent**.
 
 ---
 
-## 5. Class Mapping
+## 6. Class Mapping
 
 ### Merge all human classes into `person` (recommended)
 
@@ -257,7 +259,7 @@ human1, human2, human3, human4, human5 → person
 
 ---
 
-## 6. Output Files Explained
+## 7. Output Files Explained
 
 - **images/** – YOLO images
 - **labels/** – YOLO label files
@@ -266,7 +268,7 @@ human1, human2, human3, human4, human5 → person
 
 ---
 
-## 7. Training Example (Ultralytics YOLO)
+## 8. Training Example (Ultralytics YOLO)
 
 ```bash
 yolo detect train data=yolo_dataset/data.yaml model=yolov8n.pt imgsz=640
@@ -274,7 +276,7 @@ yolo detect train data=yolo_dataset/data.yaml model=yolov8n.pt imgsz=640
 
 ---
 
-## 8. Guarantees
+## 9. Guarantees
 
 - No train/val/test leakage
 - Session-safe splitting
@@ -283,7 +285,7 @@ yolo detect train data=yolo_dataset/data.yaml model=yolov8n.pt imgsz=640
 
 ---
 
-## 9. Current Limitations
+## 10. Current Limitations
 
 - 2D bounding boxes only
 - Requires per-camera annotation json named `<camera>_ann.json` unless `--ann_json` overrides

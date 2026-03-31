@@ -4,10 +4,10 @@
 Undistort camera images using intrinsics.json.
 
 Usage:
-  python undistort_images.py --root D:\\AOC\\datasets\\agri-human-dataset\\labelled_dataset ^
+  python preprocessing/undistort_dataset_images.py --root D:\\AOC\\datasets\\agri-human-dataset\\labelled_dataset ^
     --intrinsics D:\\AOC\\datasets\\agri-human-dataset\\calibration\\intrinsics.json
 
-By default, writes sibling folders with suffix "_undistorted", e.g.:
+By default, writes sibling folders with suffix "_undistorted", for example:
   sensor_data/cam_fish_left        -> sensor_data/cam_fish_left_undistorted
   sensor_data/cam_zed_rgb          -> sensor_data/cam_zed_rgb_undistorted
 """
