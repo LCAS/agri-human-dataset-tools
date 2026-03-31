@@ -1,6 +1,6 @@
 # Agri-Human Dataset Tools
 
-This `merged` branch consolidates the code that previously lived across multiple branches into a single, organized layout while leaving the original branches untouched.
+This `main` branch consolidates the code that previously lived across multiple branches into a single, organized layout while leaving the original branches untouched.
 
 ## Layout
 
