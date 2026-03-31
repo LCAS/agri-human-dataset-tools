@@ -209,7 +209,25 @@ Notes:
 
 ---
 
-## 4. Linux vs Windows Notes
+## 4. Additional Utilities
+
+The `yolo/` folder also includes a few standalone conversion helpers:
+
+- `fieldsafe_rgb_to_yolo.py` converts the FieldSafePedestrian RGB demo dataset into a single-class YOLO dataset.
+- `filter_to_person.py` filters COCO or Ultralytics-style YOLO/KITTI labels down to human classes and writes COCO JSON.
+- `yolo_to_coco.py` converts a YOLO image/label split plus `data.yaml` into COCO JSON.
+
+Examples:
+
+```bash
+python yolo/fieldsafe_rgb_to_yolo.py --dataset_root <FIELDSAFE_ROOT> --out <YOLO_OUT> --copy_images
+python yolo/filter_to_person.py --format coco --ann_file <ANN_JSON> --img_dir <IMG_DIR> --output <OUT_JSON> --human_labels person
+python yolo/yolo_to_coco.py --images_dir <IMAGES_DIR> --labels_dir <LABELS_DIR> --yaml_path <DATA_YAML> --output_path <OUT_JSON>
+```
+
+---
+
+## 5. Linux vs Windows Notes
 
 - Linux / macOS: use forward slashes (`/`)
 - Windows: use quoted paths if spaces exist
